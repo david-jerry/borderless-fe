@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+[x-cloak] {
+  display: none;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+}
+
+@layer components {
+  .padding-x {
+    @apply px-4 md:px-14 lg:px-24 xl:px-44;
+  }
+
+  .left-x {
+    @apply left-4 md:left-14 lg:left-24 xl:left-44;
+  }
+
+  .right-x {
+    @apply right-4 md:right-14 lg:right-24 xl:right-44;
+  }
+
+  .padding-x2 {
+    @apply px-4 md:px-14 lg:px-24 xl:px-80;
+  }
+
+  .left-x2 {
+    @apply left-4 md:left-14 lg:left-24 xl:left-80;
+  }
+
+  .right-x2 {
+    @apply right-4 md:right-14 lg:right-24 xl:right-80;
+  }
+
+  .bg-blur {
+    @apply backdrop-blur-lg backdrop-filter
+  }  
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
