@@ -1,6 +1,6 @@
 import axios from "axios";
-import { NextApiRequest } from "next";
 import { headers } from 'next/headers'
+import { NextRequest } from "next/server";
 
 
 /**
@@ -27,8 +27,19 @@ export async function getCountryFromCoordinates(latitude: number, longitude: num
         const apiUrl = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`;
 
         try {
-            const response = await axios.get(apiUrl);
-            return response.data.countryName;
+            const response = await fetch(apiUrl);
+
+            if (!response.ok) {
+                console.error('Error fetching IP location:', response);
+                throw new Error("Failed to fetch geo data")
+            }
+
+            const data = await response.json();
+
+            const countryName: string = data.country_name;
+
+            return countryName;
+
         } catch (error) {
             console.error('Error fetching country data:', error);
             return 'Unknown'; // Handle the error gracefully
@@ -53,25 +64,40 @@ export async function getCountryFromCoordinates(latitude: number, longitude: num
  * const countryName = await getCountryFromIP(req, res, storedData);
  * console.log('Country Name:', countryName);
  */
-export async function getCountryFromIP(req: NextApiRequest, storedData: string): Promise<string> {
+export async function getCountryFromIP(req: NextRequest, storedData: string | undefined): Promise<string> {
 
     try {
-        let ip: string = headers().get('x-real-ip')?.split(',')[0] || headers().get('x-forwarded-for')?.split(',')[0] || req.socket.remoteAddress || "127.0.0.1";
+        let ip: string = req.ip || headers().get('x-real-ip')?.split(',')[0] || headers().get('x-forwarded-for')?.split(',')[0] || "127.0.0.1";
 
-
-        if (storedData === "Unknown" && storedData === undefined) {
+        if (storedData === "Unknown" || storedData === undefined) {
             // Replace the following URL with the actual API endpoint that provides longitude and latitude from an IP address
             const apiUrl = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.IPADDRESS_API_CHECK}&ip=${ip}`;
 
-            const response = await axios.get(apiUrl);
+            const response = await fetch(apiUrl);
 
-            const countryName: string = response.data.country_name;
+            if (!response.ok) {
+                const res = await response.json()
+                console.error('Error fetching IP location:', res);
+                throw new Error("Failed to fetch geo data")
+            }
 
-            return countryName;
+
+            try {
+                const data = await response.json();
+                console.log(data)
+
+                const countryName: string = data.country_name;
+
+                return countryName;
+            } catch (error) {
+                console.log(error)
+                return "Nigeria";
+            }
+
         }
         return storedData
     } catch (error) {
         console.error('Error fetching IP location:', error);
-        return "Unknown"
+        return "Nigeria"
     }
 };

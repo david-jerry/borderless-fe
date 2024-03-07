@@ -14,7 +14,7 @@ export default function Navbar({ countryName }: NavbarProps) {
     const pathname = usePathname();
     const isAuth = pathname.startsWith('/auth');
     const router = useRouter();
-   
+
 
     return (
         <>
@@ -28,13 +28,11 @@ export default function Navbar({ countryName }: NavbarProps) {
 
 
                         <div className="flex items-center gap-4">
-                            <ThemeButton />
-
-                            <div className="md:pl-4 md:border-l flex items-center space-x-4">
+                            <div className="pr-4 border-r flex items-center space-x-4">
                                 {!pathname.startsWith('/dashboard') ? (
                                     <>
-                                        <Link href="#about" className={`dark:hover:text-primary hover:text-secondary focus:text-secondary ${pathname.startsWith("/#about") ? "text-secondary" : "text-white"} duration-200 ease-linear`}>
-                                            About {countryName}
+                                        <Link href="#about" className={`flex items-center space-x-2 hover:text-secondary focus:text-secondary ${pathname.startsWith("/#about") ? "text-secondary" : "text-white"} duration-200 ease-linear`}>
+                                            <span>About</span> <span className="hidden md:flex">{countryName}</span>
                                         </Link>
                                         <WaitButton/>
                                     </>
@@ -42,6 +40,7 @@ export default function Navbar({ countryName }: NavbarProps) {
 
                                 )}
                             </div>
+                            <ThemeButton />
                         </div>
                     </nav>
                 </header >

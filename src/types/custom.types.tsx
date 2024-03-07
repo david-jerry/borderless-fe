@@ -3,6 +3,22 @@ interface CustomButtonProps {
     children: React.ReactNode;
 }
 
+interface SliderItems {
+    id: number;
+    img: string;
+    heading: string;
+    description: string;
+    attibute: string;
+    attibute_link: string;
+};
+
+interface FadeAnimationType {
+    targets: string;
+    opacity: number[];
+    duration: number;
+    easing: string;
+};
+
 interface NavbarProps {
     countryName: string | null;
 }

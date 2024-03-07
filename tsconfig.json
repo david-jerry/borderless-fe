@@ -21,6 +21,11 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "typeRoots": [
+    "./node_modules/@types/",
+    "./node_modules/@glidejs/"
+  ],
+  "noImplicitAny": false,
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "test"],
   "exclude": ["node_modules"]
 }

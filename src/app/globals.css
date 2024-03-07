@@ -39,13 +39,84 @@ body {
   }
 
   .bg-blur {
-    @apply backdrop-blur-lg backdrop-filter
-  }  
+    @apply backdrop-blur-lg backdrop-filter;
+  }
+
+  .bg-blur-2xl {
+    @apply backdrop-blur-sm backdrop-filter;
+  }
+
+  .btn-style-1 {
+    @apply hover:scale-105 duration-300 ease-linear hover:shadow-md rounded-tl-lg rounded-br-lg py-2 px-6 bg-primary text-secondary dark:bg-secondary dark:text-primary;
+  }
+
+  .btn-style-2 {
+    @apply hover:scale-105 duration-300 ease-linear hover:shadow-md rounded-bl-lg rounded-tr-lg py-2 px-6 bg-primary text-secondary dark:bg-secondary dark:text-primary;
+  }
+
+  .not-found-dark {
+    @apply bg-primary;
+  }
+
+  .not-found {
+    @apply bg-secondary;
+  }
+
+  .fader__slider__image {
+    @apply h-screen w-auto aspect-video object-cover object-right-bottom relative z-10;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-}
 
+  .bg-radial-gradient-at-50-percent-minus-20 {
+    background: radial-gradient(at 50% -20%, #969086, var(--tw-bg-opacity, 1))
+      fixed;
+  }
+
+  #handboy {
+    animation: swing ease-in-out 1.3s infinite alternate;
+    transform-origin: 98% 98%;
+    transform-box: fill-box;
+  }
+
+  #girllight {
+    animation: swing ease-in-out 1.3s infinite alternate;
+    transform-origin: 0% 97%;
+    transform-box: fill-box;
+  }
+
+  #hairgirl {
+    animation: swinghair ease-in-out 1.3s infinite alternate;
+    transform-origin: 60% 0%;
+    transform-box: fill-box;
+  }
+
+  #zero {
+    transform-origin: bottom;
+    transform-box: fill-box;
+  }
+
+  /*************swing************/
+  @keyframes swing {
+    0% {
+      transform: rotate(10deg);
+    }
+    100% {
+      transform: rotate(-10deg);
+    }
+  }
+
+  /*************swing hair************/
+  @keyframes swinghair {
+    0% {
+      transform: rotate(6deg);
+    }
+    100% {
+      transform: rotate(-6deg);
+    }
+  }
+}

@@ -20,6 +20,8 @@
 import React, { useEffect, useState } from 'react'
 import { Icon } from '@iconify/react';
 
+import anime from 'animejs/lib/anime.es.js';
+
 export default function ThemeButton() {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         if (typeof window !== 'undefined') {
@@ -42,8 +44,29 @@ export default function ThemeButton() {
         initializeDarkMode();
 
         if (html) {
-            isDarkMode ? html.classList.add('dark') : html.classList.remove('dark');
+            isDarkMode ? html.classList.add('dark', "duration-300") : html.classList.remove('dark', "duration-300");
         }
+        const animeLoad = anime.timeline({
+            autoplay: true,
+            delay: 0,
+        });
+
+        const comDown = {
+            targets: '#moon',
+            translateY: [-18, 0],
+            duration: 600, // Set your desired duration (in milliseconds)
+            easing: 'easeInOutSine',
+        }
+
+        const riseUp = {
+            targets: '#sun',
+            translateY: [18, 0],
+            duration: 600, // Set your desired duration (in milliseconds)
+            easing: 'easeInOutSine',
+        }
+
+        animeLoad.add(!isDarkMode ? comDown : riseUp);
+
     }, [isDarkMode]);
 
     const toggleDarkMode = () => {
@@ -59,12 +82,8 @@ export default function ThemeButton() {
 
     return (
         <>
-            <button type="button" onClick={toggleDarkMode} className='hidden md:flex'>
-                {isDarkMode ? (
-                    <Icon className='ml-4 h-6 w-6' icon="line-md:sun-rising-twotone-loop" width="1.2em" height="1.2em" />
-                ) : (
-                    <Icon className='ml-4 h-6 w-6' icon="line-md:moon-rising-loop" width="1.2em" height="1.2em" />
-                )}
+            <button type="button" onClick={toggleDarkMode}>
+                <Icon id={isDarkMode ? 'sun' : 'moon'} className='flex-none h-6 w-6' icon={isDarkMode ? "line-md:sun-rising-twotone-loop" : "line-md:moon-rising-loop"} width="1.2em" height="1.2em" />
             </button>
         </>
     )

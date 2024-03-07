@@ -1,12 +1,35 @@
 {
-    "name": "Next-13 PWA",
-    "short_name": "PWA",
+    "name": "Borderless",
+    "short_name": "Borderless",
+    "description": "We're a one-stop shop for all your travel needs, from booking flights and hotels to finding the perfect activities and experiences. With Borderless, you can explore the world seamlessly and stress-free",
     "theme_color": "#040876",
     "background_color": "#040876",
     "display": "standalone",
     "orientation": "portrait",
     "scope": "/",
     "start_url": "/",
+    "protocol_handlers": [
+        {
+            "protocol": "web+jngl",
+            "url": "/lookup?type=%s"
+        },
+        {
+            "protocol": "web+jnglstore",
+            "url": "/shop?for=%s"
+        },
+        {
+            "protocol": "mailto",
+            "url": "/email?to=%s"
+        },
+        {
+            "protocol": "web+twitter",
+            "url": "https://twitter.com/intent/tweet?url=%s"
+        },
+        {
+            "protocol": "web+facebook",
+            "url": "https://www.facebook.com/sharer/sharer.php?u=%s"
+        }
+    ],
     "icons": [
         {
             "src": "/pwa/windows11/SmallTile.scale-100.png",
