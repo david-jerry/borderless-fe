@@ -76,18 +76,18 @@ export default function WaitListForm({ isWaitlist }: { isWaitlist: boolean }) {
             {isOpen ? (
                 <div id="wait" className={`shadow-md space-y-6 bg-light/40 dark:bg-primary/50 bg-blur  rounded-tr-3xl rounded-bl-xl md:absolute fixed top-[6.3rem] p-6 w-[calc(100vw_-_2rem)] lg:w-full right-x md:max-w-md duration-300 ease-linear ${!isOpen ? 'hidden duration-300' : "flex flex-col"}`}>
                     <div className="flex-col space-y-3">
-                        <h2 className="font-black text-primary dark:text-white text-xl md:text-2xl lg:text-3xl">Don't miss out on the future of travel</h2>
+                        <h2 className="font-black text-dark dark:text-white text-xl md:text-2xl lg:text-3xl">Don't miss out on the future of travel</h2>
                         <span className="text-lg text-gray-600 dark:text-secondary">Join the wait list today!</span>
                     </div>
 
-                    <div className="w-full border-b-primary dark:border-b-gray-500 border-b-[0.5px]"></div>
+                    <div className="w-full border-b-dark dark:border-b-gray-500 border-b-[0.5px]"></div>
 
                     <form action="" method="post" className="space-y-4">
                         <InputComponent type="text" id="id_full_name" name="full_name" text="Full Name"/>
                         <InputComponent type="tel" id="id_phone" name="phone" text="Mobile Number"/>
                         <InputComponent type="email" id="id_email" name="email" text="Email"/>
                         <InputComponent type="text" id="id_country" name="country" text="Country"/>
-                        <button onClick={submitWaiting} className={`py-2 hover:shadow-lg hover:scale-105 duration-300 ease-linear px-6 rounded-lg bg-primary text-secondary dark:bg-secondary dark:text-primary w-full`} type="button">
+                        <button onClick={submitWaiting} className={`py-3 hover:shadow-lg hover:scale-105 duration-300 ease-linear px-6 rounded-lg bg-dark text-light dark:bg-secondary dark:text-dark w-full`} type="button">
                             <span className={`${isLoading ? "animate-ping" : "animate-none"}`}>{isLoading ? "Submitting..." : "Submit"}</span>
                         </button>
                     </form>

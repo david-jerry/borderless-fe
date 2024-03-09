@@ -68,10 +68,6 @@ body {
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
   .bg-radial-gradient-at-50-percent-minus-20 {
     background: radial-gradient(at 50% -20%, #969086, var(--tw-bg-opacity, 1))
       fixed;

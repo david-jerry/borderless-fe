@@ -1,5 +1,6 @@
 "use client"
 
+import localStorageService from '@/services/storeToLocalStorage';
 import { requestGeolocationPermission } from '@/utils/permissions';
 import React, { useEffect, useState } from 'react';
 
@@ -8,8 +9,8 @@ export default function MainLayout({ children }: {
 }) {
     const [isDarkMode, setIsDarkMode] = useState(() => {
         if (typeof window !== 'undefined') {
-            const storedPreference = window.localStorage.getItem('darkMode');
-            return storedPreference ? JSON.parse(storedPreference) : false;
+            const storedPreference = localStorageService.get('darkMode');
+            return storedPreference ? storedPreference : false;
         }
         return false;
     });
@@ -30,8 +31,8 @@ export default function MainLayout({ children }: {
 
         const initializeDarkMode = () => {
             if (typeof window !== 'undefined' && window.localStorage) {
-                const storedDarkMode = localStorage.getItem('darkMode');
-                setIsDarkMode(storedDarkMode ? JSON.parse(storedDarkMode) : false);
+                const storedDarkMode = localStorageService.get('darkMode');
+                setIsDarkMode(storedDarkMode ? storedDarkMode : false);
             }
         };
 

@@ -55,3 +55,25 @@ export function sleep(ms: number): Promise<void> {
 }
 
 
+/**
+ * Retrieves error messages from the response data.
+ * @param {any} data - The response data containing error messages.
+ * @returns {string[]} - An array of error messages extracted from the response data.
+ * @example
+ * // Example usage:
+ * const response = {
+ *     errors: ['Invalid email format', 'Password is too short']
+ * };
+ * const errors = getResponseErrors(response);
+ * console.log(errors); // Output: ['Invalid email format', 'Password is too short']
+ */
+export function getResponseErrors(data: any): string[] {
+    if (data.non_field_errors) {
+        return [data.non_field_errors]
+    } else {
+        const tmpErrors:string[] = Object.values(data).map((error: any) => {
+            return error
+        })
+        return tmpErrors;
+    }
+}

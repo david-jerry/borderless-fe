@@ -3,6 +3,13 @@ interface CustomButtonProps {
     children: React.ReactNode;
 }
 
+interface AuthState {
+    userId: string | undefined;
+    isAuthenticated: boolean;
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
+}
+
 interface SliderItems {
     id: number;
     img: string;
@@ -25,10 +32,14 @@ interface NavbarProps {
 
 interface UserContextTypes {
     user: User | null;
-    register: (name: string, email: string, password: string, phone: string, country: string) => Promise<void>;
-    login: (email: string, password: string) => Promise<void>;
-    logout: () => Promise<void>;
-    checkUser: () => Promise<void>;
+    register: (name: string, email: string, password1: string, password2: string, phone: string, country: string) => Promise<any>;
+    login: (email: string, password: string) => Promise<any>;
+    logout: () => Promise<null>;
+    sendPasswordResetEmail: (email: string) => Promise<any>;
+    resetPassword: (old_password: string, password1:string, password2:string) => Promise<any>;
+    confirmPasswordReset: (token: string, uid: string, new_password1: string, new_password2: string) => Promise<any>;
+    checkUser: () => Promise<null>;
+    rfreshToken: (token: string) => Promise<string|undefined>;
     isLoading: boolean;
 }
 
@@ -36,12 +47,12 @@ interface User {
     id: number;
     name: string | null;
     email: string;
-    phone: string;
     country: string;
-    joined: Date;
-    token: string;
-    refreshToken: string;
-    isAdmin: boolean;
+    phone: string;
+    waitlisted: boolean;
+    is_staff: boolean;
+    date_joined: string;
+    last_login: string;
 }
 
 interface Coordinates {

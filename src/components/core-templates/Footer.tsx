@@ -9,17 +9,11 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 
 export default function Footer() {
     const pathname = usePathname();
-    const isDashboard = pathname.startsWith("/dashboard");
-    const isAuth = pathname.startsWith("/auth");
+    const isDashboard = pathname.startsWith("/dashboard") || pathname.startsWith("/auth") || pathname === "/auth/login" || pathname === "/auth/register";
 
     return (
-        (!isDashboard || !isAuth ? (
+        (!isDashboard ? (
             <footer className="relative w-screen padding-x bg-primary py-8 space-y-6 overflow-hidden">
-                <div className="z-0 w-screen h-full absolute bottom-0 left-0" style={{backgroundImage: "/footer-background.svg",  backgroundRepeat: "repeat", backgroundSize: "cover"}}>
-                </div>
-                <div className="z-[4] w-screen h-screen absolute bottom-0 left-0 bg-primary/60">
-                </div>
-
                 <div className="relative z-10 grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 lg:gap-5 w-full">
                     <div className="order-2 lg:order-1 grid grid-cols-2 col-span-2 divide-x-2 lg:divide-x-0 divide-gray-200 w-full">
                         <div className="flex flex-col justify-between w-full">

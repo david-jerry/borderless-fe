@@ -67,27 +67,27 @@ export default function HomeSlider() {
         </Swiper>
 
         <div className="hidden md:flex absolute z-40 top-40 md:top-1/4 xl:top-1/3 left-x flex-col space-y-4 max-w-xl">
-          <h1 className="font-black text-6xl">We are not simply <span className="text-white">flight bookers</span> or hotel finders</h1>
+          <h1 className="font-black text-6xl dark:text-white">We are not simply <span className="text-white dark:text-secondary">flight bookers</span> or hotel finders</h1>
           <div className="h-1 bg-primary dark:bg-secondary w-full max-w-xs"></div>
           <p className="text-white text-sm lg:text-base">We are your travel confidantes, your mapmakers, your local guides, all woven into one seamless platform. We curate experience that go beyond the tourist bubble, immersing you in the authentic pulse of each destination.</p>
         </div>
 
         <div className="absolute z-50 lg:bottom-20 bottom-10 right-x flex items-center space-x-4">
-          <button onClick={preSlide} className="py-2 px-4 bg-primary/70 dark:bg-primary/50 bg-blur text-secondary rounded-lg">
+          <button onClick={preSlide} className="py-2 px-4 bg-dark/70 dark:bg-dark/50 bg-blur text-secondary rounded-lg">
             <Icon className="w-6 h-6" icon="flowbite:caret-left-solid" width="1.2em" height="1.2em" />
           </button>
           <span className="text-white">
             {activeIndex + 1}/{slideItems.length}
           </span>
-          <button onClick={nextSlide} className="py-2 px-4 bg-primary/70 dark:bg-primary/50 bg-blur text-secondary rounded-lg">
+          <button onClick={nextSlide} className="py-2 px-4 bg-dark/70 dark:bg-dark/50 bg-blur text-secondary rounded-lg">
             <Icon className="w-6 h-6" icon="flowbite:caret-right-solid" width="1.2em" height="1.2em" />
           </button>
         </div>
 
-        <div className="z-50 text-primary dark:text-secondary absolute top-1/3 lg:bottom-20 lg:top-auto left-x flex flex-col items-center gap-3">
-          <Link href=""><Icon className="hover:text-secondary duration-300 ease-linear w-6 h-6" icon="cib:facebook" width="1.2em" height="1.2em" /></Link>
-          <Link href=""><Icon className="hover:text-secondary duration-300 ease-linear w-6 h-6" icon="entypo-social:instagram-with-circle" width="1.2em" height="1.2em" /></Link>
-          <Link className="w-6 h-6 rounded-full overflow-hidden" href=""><Icon className="overflow-hidden rounded-full hover:text-secondary duration-300 ease-linear w-6 h-6" icon="fa6-brands:square-x-twitter" width="1.2em" height="1.2em" /></Link>
+        <div className="border-l-[0.5px] border-b-[0.5px] dark:border-l-dark border-l-light dark:border-b-dark border-b-light z-50 text-primary dark:text-secondary absolute bottom-10 lg:bottom-20 left-x flex flex-col items-center gap-3 h-2/4 lg:h-1/4 w-24 lg:w-0">
+          <Link href=""><Icon className="opacity-0 hover:text-secondary duration-300 ease-linear w-6 h-6" icon="cib:facebook" width="1.2em" height="1.2em" /></Link>
+          <Link href=""><Icon className="opacity-0 hover:text-secondary duration-300 ease-linear w-6 h-6" icon="entypo-social:instagram-with-circle" width="1.2em" height="1.2em" /></Link>
+          <Link className="opacity-0 w-6 h-6 rounded-full overflow-hidden" href=""><Icon className="overflow-hidden rounded-full hover:text-secondary duration-300 ease-linear w-6 h-6" icon="fa6-brands:square-x-twitter" width="1.2em" height="1.2em" /></Link>
         </div>
       </div>
     </>

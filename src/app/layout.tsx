@@ -4,6 +4,7 @@ import "./globals.css";
 import MainLayout from "@/components/layouts/MainLayout";
 import NavBar from "@/components/core-templates/NavBar";
 import Footer from "@/components/core-templates/Footer";
+import AuthProvider from "@/providers/AuthProviders";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -99,11 +100,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${raleway.className} font-medium text-base bg-light dark:bg-dark relative z-0 w-screen scrollbar-thin scrollbar-thumb-secondary overflow-x-hidden overflow-y-auto`}>
-        <NavBar countryName="Borderless" />
-        <MainLayout>
-          {children}
-        </MainLayout>
-        <Footer />
+        <AuthProvider>
+          <NavBar countryName="Borderless" />
+          <MainLayout>
+            {children}
+          </MainLayout>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
