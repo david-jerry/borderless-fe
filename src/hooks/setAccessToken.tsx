@@ -17,7 +17,7 @@ export default async function SetAuthAccessToken(token: string | null = null, re
         cookies().set('authRefreshToken', refToken!, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 60 * 60 * 24 * 7, // 7 days (60 sec * 60 mins * 24 hours * 7 days)
+            maxAge: 60 * 60 * 24 * 1, // 7 days (60 sec * 60 mins * 24 hours * 7 days)
             path: "/"
         });
     }
@@ -26,7 +26,7 @@ export default async function SetAuthAccessToken(token: string | null = null, re
         cookies().set('authUserId', userId!, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            maxAge: 60 * 60 * 24 * 7, // 7 days (60 sec * 60 mins * 24 hours * 7 days)
+            maxAge: 60 * 60 * 24 * 1, // 7 days (60 sec * 60 mins * 24 hours * 7 days)
             path: "/"
         });
     }

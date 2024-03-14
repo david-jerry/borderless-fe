@@ -1,16 +1,16 @@
-import { Metadata } from 'next';
-import React from 'react'
-import InputComponent from '@/components/forms/InputComponent';
-import Image from 'next/image';
+/* eslint-disable react-hooks/exhaustive-deps */
 import Link from 'next/link';
-import ForgotPasswordForm from '@/components/forms/ForgotPasswordForm';
+import Image from 'next/image';
+import React from 'react'
+import { Metadata } from 'next';
+import ResendEmailForm from '@/components/forms/ResendEmailForm';
 
 export const metadata: Metadata = {
-    title: "Forgotten Password",
-    description: "Request with your registered email address to get a one time auth reset code for resetting your authentication password",
+    title: "Resend Email Verification",
+    description: "Resend the email verification code",
 };
 
-export default function ForgotPassword() {
+export default function ResentEmail() {
     return (
         <>
             <section className="w-screen h-screen grid grid-cols-1 lg:grid-cols-2 p-4 lg:p-8 bg-light/60 dark:bg-dark overflow-y-auto md:gap-6 lg:gap-0">
@@ -31,10 +31,9 @@ export default function ForgotPassword() {
                             <Image width="96" height="96" src="/logo-mobile.png" alt="logo" className="object-fit h-24 w-24 group-hover:scale-125 duration-300 ease-in-out" />
                         </Link>
                         <h3 className="font-semibold text-base uppercase">Borderless</h3>
-                        <p className="text-xs font-normal">Forgotten your password? Ahh, worry less, we have you covered.</p>
+                        <p className="text-xs font-normal">Resend a new email verification code</p>
                     </center>
-
-                    <ForgotPasswordForm />
+                    <ResendEmailForm />
 
                     <center className="absolute bottom-10 w-full">
                         <span className="font-normal text-xs lg:text-sm">

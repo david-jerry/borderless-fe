@@ -30,15 +30,28 @@ interface NavbarProps {
     countryName: string | null;
 }
 
+interface SubscribersProps {
+    subscribers: User[];
+}
+
+interface ActivitiesProps {
+    subscribers: Activities[];
+}
+
 interface UserContextTypes {
     user: User | null;
+    accessToken: string | undefined;
+    refreshToken: string | undefined;
     register: (name: string, email: string, password1: string, password2: string, phone: string, country: string) => Promise<any>;
     login: (email: string, password: string) => Promise<any>;
-    logout: () => Promise<null>;
+    logout: () => Promise<any>;
     sendPasswordResetEmail: (email: string) => Promise<any>;
-    resetPassword: (old_password: string, password1:string, password2:string) => Promise<any>;
+    resetPassword: (password1:string, password2:string) => Promise<any>;
     confirmPasswordReset: (token: string, uid: string, new_password1: string, new_password2: string) => Promise<any>;
-    checkUser: () => Promise<null>;
+    verifyEmail: (key: string) => Promise<any>;
+    resendVerificationEmail: (email: string) => Promise<any>;
+    checkUserExists: (email: string) => Promise<any>;
+    checkPhoneExists: (phone: string) => Promise<any>;
     rfreshToken: (token: string) => Promise<string|undefined>;
     isLoading: boolean;
 }
@@ -53,6 +66,13 @@ interface User {
     is_staff: boolean;
     date_joined: string;
     last_login: string;
+}
+
+interface Activities {
+    id: number;
+    identity: string;
+    activity_type: string;
+    created: string
 }
 
 interface Coordinates {

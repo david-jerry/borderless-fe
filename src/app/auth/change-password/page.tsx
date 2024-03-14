@@ -3,6 +3,7 @@ import React from 'react'
 import InputComponent from '@/components/forms/InputComponent';
 import Image from 'next/image';
 import Link from 'next/link';
+import ResetPasswordForm from '@/components/forms/ResetPasswordForm';
 
 export const metadata: Metadata = {
   title: "Reset Password",
@@ -32,17 +33,12 @@ export default function ResetPassword() {
             <h3 className="font-semibold text-base uppercase">Borderless</h3>
             <p className="text-xs font-normal">You are doing an amazing thing securing your account with a new set of credential. Please carry on.</p>
           </center>
-          <form action="" className="pt-8 max-w-xs lg:max-w-md w-full space-y-6">
-            <InputComponent type="old_password" id="id_old_password" name="old_password" text="Old Password" />
-            <InputComponent type="password" id="id_password" name="password" text="Password" />
-            <InputComponent type="password" id="id_password_confirm" name="password_confirm" text="Retype Password" />
 
-            <button className="rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 bg-primary dark:bg-secondary text-light dark:text-dark">Submit</button>
-          </form>
+          <ResetPasswordForm/>
 
           <center className="absolute bottom-10 w-full">
             <span className="font-normal text-xs lg:text-sm">
-              Return to dashboard? <Link href="/dashboard" className="font-semibold hover:text-primary dark:hover:text-secondary duration-300 ease-linear">Dashboard</Link>
+              forgotten old password? <Link href="/auth/forgot-password" className="font-semibold hover:text-primarydark:hover:text-secondary duration-300 ease-linear">Reset Password</Link>
             </span>
           </center>
         </div>

@@ -20,6 +20,13 @@ const localStorageService = {
             } else {
                 return null;
             }
+        } else {
+            let response: string | null = localStorage.getItem(name);
+            if (response !== null) {
+                return JSON.parse(response);
+            } else {
+                return null;
+            }
         }
         return null;
     },
@@ -36,7 +43,10 @@ const localStorageService = {
             } catch (error) {
                 console.error('Error storing data in local storage:', error);
             }
+        } else {
+            localStorage.setItem(name, JSON.stringify(value));
         }
+        console.log("failed")
     },
 
     /**
@@ -48,7 +58,10 @@ const localStorageService = {
         if (typeof window !== 'undefined') {
             // Same implementation as `save`
             localStorageService.save(name, value);
+        } else {
+            localStorageService.save(name, value);
         }
+        console.log("failed")
     },
 
     /**
@@ -58,7 +71,10 @@ const localStorageService = {
     delete: (name: string) => {
         if (typeof window !== 'undefined') {
             window.localStorage.removeItem(name);
+        } else {
+            localStorage.removeItem(name);
         }
+        console.log("failed")
     }
 };
 

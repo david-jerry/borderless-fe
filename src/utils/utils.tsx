@@ -77,3 +77,7 @@ export function getResponseErrors(data: any): string[] {
         return tmpErrors;
     }
 }
+export function extractErrorMessages(errorString: string) {
+    const matches = errorString.match(/ErrorDetail\(string='([^']*)'/g);
+    return matches ? matches.map(match => match.replace(/ErrorDetail\(string='([^']*)'/, '$1')) : [];
+}

@@ -16,17 +16,7 @@ export default function MainLayout({ children }: {
     });
 
     useEffect(() => {
-        const initializeGeolocation = async () => {
-            try {
-                await requestGeolocationPermission();
-                // Additional logic after geolocation permission is granted can be added here
-            } catch (error) {
-                // Handle errors or log messages if needed
-            }
-        };
-
-        initializeGeolocation();
-
+        
         const html = document.querySelector('html');
 
         const initializeDarkMode = () => {

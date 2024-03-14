@@ -73,21 +73,21 @@ export default function HomeSlider() {
         </div>
 
         <div className="absolute z-50 lg:bottom-20 bottom-10 right-x flex items-center space-x-4">
-          <button onClick={preSlide} className="py-2 px-4 bg-dark/70 dark:bg-dark/50 bg-blur text-secondary rounded-lg">
+          <button onClick={preSlide} className="py-2 px-4 bg-dark/70 dark:bg-dark/50 bg-blur text-secondary dark:text-secondary rounded-lg">
             <Icon className="w-6 h-6" icon="flowbite:caret-left-solid" width="1.2em" height="1.2em" />
           </button>
           <span className="text-white">
             {activeIndex + 1}/{slideItems.length}
           </span>
-          <button onClick={nextSlide} className="py-2 px-4 bg-dark/70 dark:bg-dark/50 bg-blur text-secondary rounded-lg">
+          <button onClick={nextSlide} className="py-2 px-4 bg-dark/70 dark:bg-dark/50 bg-blur text-secondary dark:text-secondary rounded-lg">
             <Icon className="w-6 h-6" icon="flowbite:caret-right-solid" width="1.2em" height="1.2em" />
           </button>
         </div>
 
-        <div className="border-l-[0.5px] border-b-[0.5px] dark:border-l-dark border-l-light dark:border-b-dark border-b-light z-50 text-primary dark:text-secondary absolute bottom-10 lg:bottom-20 left-x flex flex-col items-center gap-3 h-2/4 lg:h-1/4 w-24 lg:w-0">
+        <div className="hidden border-l-[0.5px] border-b-[0.5px] dark:border-l-dark border-l-light dark:border-b-dark border-b-light z-50 text-primary dark:text-secondary absolute bottom-10 lg:bottom-20 left-x flex-col items-center gap-3 h-2/4 lg:h-1/4 w-24 lg:w-0">
           <Link href=""><Icon className="opacity-0 hover:text-secondary duration-300 ease-linear w-6 h-6" icon="cib:facebook" width="1.2em" height="1.2em" /></Link>
           <Link href=""><Icon className="opacity-0 hover:text-secondary duration-300 ease-linear w-6 h-6" icon="entypo-social:instagram-with-circle" width="1.2em" height="1.2em" /></Link>
-          <Link className="opacity-0 w-6 h-6 rounded-full overflow-hidden" href=""><Icon className="overflow-hidden rounded-full hover:text-secondary duration-300 ease-linear w-6 h-6" icon="fa6-brands:square-x-twitter" width="1.2em" height="1.2em" /></Link>
+          <Link className="opacity-0 w-6 h-6 rounded-full overflow-hidden" href=""><Icon className="overflow-hidden rounded-full hover:text-secondary dark:hover:text-secondary duration-300 ease-linear w-6 h-6" icon="fa6-brands:square-x-twitter" width="1.2em" height="1.2em" /></Link>
         </div>
       </div>
     </>

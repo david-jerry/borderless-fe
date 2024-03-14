@@ -47,11 +47,11 @@ body {
   }
 
   .btn-style-1 {
-    @apply hover:scale-105 duration-300 ease-linear hover:shadow-md rounded-tl-lg rounded-br-lg py-2 px-6 bg-primary text-secondary dark:bg-secondary dark:text-primary;
+    @apply hover:scale-105 duration-300 ease-linear hover:shadow-md rounded-tl-lg rounded-br-lg py-2 px-6 bg-primary text-secondary dark:bg-tertiary dark:text-primary;
   }
 
   .btn-style-2 {
-    @apply hover:scale-105 duration-300 ease-linear hover:shadow-md rounded-bl-lg rounded-tr-lg py-2 px-6 bg-primary text-secondary dark:bg-secondary dark:text-primary;
+    @apply hover:scale-105 duration-300 ease-linear hover:shadow-md rounded-bl-lg rounded-tr-lg py-2 px-6 bg-primary text-secondary dark:bg-tertiary dark:text-primary;
   }
 
   .not-found-dark {
@@ -114,5 +114,23 @@ body {
     100% {
       transform: rotate(-6deg);
     }
+  }
+
+  @media (min-width: 640px) {
+    table {
+      display: inline-table !important;
+    }
+
+    thead tr:not(:first-child) {
+      display: none;
+    }
+  }
+
+  td:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  th:not(:last-child) {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   }
 }

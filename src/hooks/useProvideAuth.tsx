@@ -2,8 +2,14 @@
 "use client"
 
 import apiService from "@/services/apiService";
-import localStorageService from "@/services/storeToLocalStorage";
 import { useEffect, useState } from "react";
+import GetAuthAccessToken from "./getAccessToken";
+import SetAuthAccessToken from "./setAccessToken";
+import { useRouter } from "next/navigation";
+import DeleteAuthAccessToken from "./deleteAccessTokens";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { sleep } from "@/utils/utils";
 
 /**
  * Custom hook for providing authentication functionality using client-side requests.
@@ -53,50 +59,59 @@ import { useEffect, useState } from "react";
  * export default YourComponent;
  */
 function useProvideAuth() {
+    const router = useRouter();
     const [user, setUser] = useState<User | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [accessToken, setAccessToken] = useState<string | null>(localStorageService.get('authAccessToken'))
-    const [refreshToken, setRefreshToken] = useState<string | null>(localStorageService.get('authRefreshToken'))
+    const [accessToken, setAccessToken] = useState<string | undefined>(undefined)
+    const [refreshToken, setRefreshToken] = useState<string | undefined>(undefined)
+    const [tokens, setTokens] = useState<(string | undefined)[]>([]);
 
-    const checkUser = async () => {
-        if (accessToken && refreshToken !== null) {
-            await apiService.get("/users/me", accessToken)
-                .then((data) => {
-                    console.log(`User Endpoint data: ${data}`)
-                    setUser(data);
-                }).catch((error) => {
-                    setUser(null)
-                })
-        } else if (accessToken === null && refreshToken !== null) {
-            const at = await rfreshToken(refreshToken)
-            if (at !== undefined) {
-                await apiService.get("/users/me", at)
-                    .then((data) => {
-                        console.log(`User Endpoint data: ${data}`)
-                        setUser(data);
-                    }).catch((error) => {
-                        setUser(null)
-                    })
-            } else {
+    const checkUser = async (at: string|undefined, rt: string|undefined) => {
+        if (at !== undefined && rt !== undefined) {
+            const data = await apiService.get("/users/me/", at)
+            if (data.error_message) {
                 setUser(null)
+            } else if (!data.error_message) {
+                setUser(data)
             }
+        } else if (at === undefined && rt !== undefined) {
+            const ast = await rfreshToken(rt)
+            if (ast !== undefined && !ast.error_message) {
+                const data = await apiService.get("/users/me/", ast)
+                if (data.error_message) {
+                    setUser(null)
+                } else if (!data.error_message) {
+                    setUser(data)
+                }
+            } else if (ast === undefined && ast.error_message) {
+                DeleteAuthAccessToken()
+                setUser(null)
+            } else {
+                setUser(null);
+            }
+        } else if (at === undefined && rt === undefined) {
+            DeleteAuthAccessToken()
+            setUser(null)
         }
-        return null;
     };
 
-    const rfreshToken = async (token: string): Promise<string | undefined> => {
+    const rfreshToken = async (token: string): Promise<any> => {
+        setRefreshToken(token)
+        setIsLoading(true)
         const body = {
             "refresh": token
         }
-        await apiService.post('/auth/token-refresh', body, undefined)
-            .then((response) => {
-                setAccessToken(response.access)
-                return response.access
-            }).catch((error) => {
-                console.log(error)
-                return undefined
-            })
-        return undefined
+        const response = await apiService.post('/auth/token-refresh/', body, undefined);
+        setIsLoading(false)
+        if (response.tokenData) {
+            setAccessToken(response.tokenData.access)
+            await SetAuthAccessToken(response.tokenData.access)
+        } else if (response.error_message === "Token is invalid or expired") {
+            router.push('/auth/login')
+            return response
+        } else {
+            return response.tokenData.access
+        }
     }
 
 
@@ -106,24 +121,19 @@ function useProvideAuth() {
             "email": email,
             "password": password
         }
-        await apiService.post("/auth/login", body, undefined).then((response) => {
-            if (response.access) {
-                setAccessToken(response.access)
-                setRefreshToken(response.refresh)
-                setUser(response.user)
-            }
-            setIsLoading(false)
-            return response;
-        }).catch((error) => {
-            console.log(error)
-            setIsLoading(false)
-            return null
-        })
-
+        const response = await apiService.post("/auth/login/", body, undefined);
+        if (response.access) {
+            setAccessToken(response.access)
+            setRefreshToken(response.refresh)
+            setUser(response.user)
+            SetAuthAccessToken(response.access, response.refresh, response.user.id)
+        }
+        setIsLoading(false)
+        return response;
     };
 
 
-    const register = async (email: string, name: string, phone: string, country: string, password1: string, password2: string) => {
+    const register = async (name: string, email: string, password1: string, password2: string, phone: string, country: string) => {
         setIsLoading(true)
         const body = {
             "email": email,
@@ -133,32 +143,36 @@ function useProvideAuth() {
             "password1": password1,
             "password2": password2,
         }
-        await apiService.post("/auth/register", body, undefined);
+        const res = await apiService.post("/auth/register/", body, undefined);
         setIsLoading(false)
-        return null
+        return res
     };
 
 
     const logout = async () => {
-        await apiService.get("/auth/logout", undefined).then((response) => {
-            console.log(response)
-            if (response.detail) {
-                setUser(null);
-                setAccessToken(null)
-                setRefreshToken(null);
-                return null
-            }
-        }).catch((err) => {
-            console.log(err)
-            return null
-        })
-        return null
+        const res = await apiService.get("/auth/logout/", undefined);
+        setUser(null);
+        setAccessToken(undefined)
+        setRefreshToken(undefined);
+        DeleteAuthAccessToken();
+        toast.success("Successfully Logged Out!")
+        sleep(2000);
+        router.push("/");
+        return res
     };
 
 
-    const sendPasswordResetEmail = async (email: string) => {
+    const sendPasswordResetEmail = async (email: string): Promise<any> => {
         setIsLoading(true)
-        const res = await apiService.post("/auth/password/reset", { 'email': email }, undefined);
+        const res = await apiService.post("/auth/password/reset/", { 'email': email }, undefined);
+        setIsLoading(false)
+        return res
+    };
+
+
+    const resendVerificationEmail = async (email: string): Promise<any> => {
+        setIsLoading(true)
+        const res = await apiService.post("/auth/resend-email-verification/", { 'email': email }, undefined);
         setIsLoading(false)
         return res
     };
@@ -166,21 +180,22 @@ function useProvideAuth() {
 
     const resetPassword = async (password1: string, password2: string): Promise<any> => {
         setIsLoading(true)
-        if (accessToken) {
-            await apiService.post("/auth/password/change-password", { 'new_password1': password1, "new_password2": password2 }, accessToken).then((response) => {
-                setIsLoading(false)
-                return response
-            }).catch((e) => {
-                setIsLoading(false)
-                return e
-            })
-        } else if (accessToken === undefined && refreshToken) {
+        const body = { 'new_password1': password1, "new_password2": password2 };
+        console.log(`access ${accessToken}`)
+        console.log(`refresh ${refreshToken}`)
+        if (accessToken !== undefined) {
+            const response = await apiService.post("/auth/password/change-password/", body, accessToken);
+            setIsLoading(false);
+            return response;
+        } else if (accessToken === undefined && refreshToken !== undefined) {
             const at = await rfreshToken(refreshToken)
-            const res = await apiService.post("/auth/password/change-password", { 'new_password1': password1, "new_password2": password2 }, at);
+            const response = await apiService.post("/auth/password/change-password/", body, at);
+            setIsLoading(false);
+            return response;
+        } else {
             setIsLoading(false)
-            return res
+            return "Network Error"
         }
-        return null
     };
 
     const verifyEmail = async (key: string): Promise<any> => {
@@ -188,7 +203,9 @@ function useProvideAuth() {
         const body = {
             'key': key
         };
-        const res = await apiService.post("/auth/email/verify-email", body, undefined)
+        const res = await apiService.post("/auth/email/verify-email/", body, undefined)
+        setIsLoading(false);
+        return res
     }
 
 
@@ -200,33 +217,54 @@ function useProvideAuth() {
             "new_password1": new_password1,
             "new_password2": new_password2,
         }
-        const res = apiService.post("/auth/password/reset/confirm", body, undefined);
+        const res = apiService.post("/auth/password/reset/confirm/", body, undefined);
         setIsLoading(false)
         return res
     };
 
+    const checkUserExists = async (email: string) => {
+        const res = apiService.get(`/validate/check-user-exists/?email=${email}`, undefined);
+        setIsLoading(false)
+        return res
+    };
+
+    const checkPhoneExists = async (phone: string) => {
+        const res = apiService.get(`/validate/check-phone-exists/?phone=${phone}`, undefined);
+        setIsLoading(false)
+        return res
+    };
 
     // Subscribe to user on mount
     // Because this sets state in the callback it will cause any ...
     // ... component that utilizes this hook to re-render with the ...
     // ... latest auth object.
     useEffect(() => {
-        setAccessToken(localStorageService.get('authAccessToken'))
-        setRefreshToken(localStorageService.get('authRefreshToken'))
-        checkUser;
+        const getCookies = async () => {
+            const res = await GetAuthAccessToken()
+            setTokens(res)
+            setAccessToken(res[0])
+            setRefreshToken(res[1])
+            await checkUser(res[0], res[1]);
+        }
+        getCookies();
     }, []);
 
 
     // Return the user object and auth methods
     return {
         user,
+        accessToken,
+        refreshToken,
         register,
         login,
         logout,
         sendPasswordResetEmail,
         resetPassword,
         confirmPasswordReset,
-        checkUser,
+        verifyEmail,
+        resendVerificationEmail,
+        checkUserExists,
+        checkPhoneExists,
         rfreshToken,
         isLoading,
     };

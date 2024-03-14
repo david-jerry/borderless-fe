@@ -1,3 +1,5 @@
+
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL; // || "http://localhost:8000/api/v1"
 /**
  * Represents a service for making HTTP requests to an API Endpoint.
  * @namespace
@@ -13,7 +15,7 @@ const apiService = {
     get: async (url: string, token: string | undefined): Promise<any> => {
         return new Promise((resolve, reject) => {
             if (token === undefined) {
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json",
@@ -29,7 +31,7 @@ const apiService = {
                     })
             } else if (token !== undefined) {
 
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "GET",
                     headers: {
                         "Accept": "application/json",
@@ -56,10 +58,10 @@ const apiService = {
      * @param {string | undefined} token - The authorization token (optional).
      * @returns {Promise<any>} - A promise that resolves with the response data.
      */
-    post: async (url: string, body: any, token: string | undefined): Promise<any> => {
+    post: async (url: string, body: {}, token: string | undefined): Promise<any> => {
         return new Promise((resolve, reject) => {
             if (token === undefined) {
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "POST",
                     headers: {
                         "Accept": "application/json",
@@ -76,7 +78,7 @@ const apiService = {
                     })
             } else if (token !== undefined) {
 
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "POST",
                     body: JSON.stringify(body),
                     headers: {
@@ -107,7 +109,7 @@ const apiService = {
     update: async (url: string, body: any, token: string | undefined): Promise<any> => {
         return new Promise((resolve, reject) => {
             if (token === undefined) {
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "PATCH",
                     headers: {
                         "Accept": "application/json",
@@ -124,7 +126,7 @@ const apiService = {
                     })
             } else if (token !== undefined) {
 
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "PATCH",
                     body: JSON.stringify(body),
                     headers: {
@@ -154,7 +156,7 @@ const apiService = {
     delete: async (url: string, token: string | undefined): Promise<any> => {
         return new Promise((resolve, reject) => {
             if (token === undefined) {
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "DELETE",
                     headers: {
                         "Accept": "application/json",
@@ -170,7 +172,7 @@ const apiService = {
                     })
             } else if (token !== undefined) {
 
-                fetch(`${process.env.BASE_API_URL}${url}`, {
+                fetch(`${BASE_URL}${url}`, {
                     method: "DELETE",
                     headers: {
                         "Accept": "application/json",

@@ -5,6 +5,7 @@ import InputComponent from '@/components/forms/InputComponent';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
+import LoginForm from '@/components/forms/LoginForm';
 
 export const metadata: Metadata = {
   title: "Login",
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function Login() {
+
   return (
     <>
       <section className="w-screen h-screen grid grid-cols-1 lg:grid-cols-2 p-4 lg:p-8 bg-light/60 dark:bg-dark overflow-y-auto md:gap-6 lg:gap-0">
@@ -32,21 +34,16 @@ export default function Login() {
               <Image width="96" height="96" src="/logo-mobile.png" alt="logo" className="object-fit h-24 w-24 group-hover:scale-125 duration-300 ease-in-out" />
             </Link>
             <h3 className="font-semibold text-base uppercase">Borderless</h3>
-            <p className="text-xs font-normal">What are you waiting for? Get in!</p>
+            <p className="text-xs font-normal">Administrator? What are you waiting for? Get in!</p>
           </center>
-          <form action="" className="pt-8 max-w-xs lg:max-w-md w-full space-y-6">
-            <InputComponent type="email" id="id_email" name="email" text="Email Address" />
-            <InputComponent type="password" id="id_password" name="password" text="Password" />
 
-            <center><Link href="/auth/forgot-password" className="font-bold" type="button">Forgot password ?</Link></center>
-            <button className="rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 bg-primary dark:bg-secondary text-light dark:text-dark">Submit</button>
-          </form>
+          <LoginForm />
 
           <center className="absolute bottom-10 w-full">
             <span className="font-normal text-xs lg:text-sm">
-              Don't have an account? <Link href="/auth/register" className="font-semibold hover:text-primary dark:hover:text-secondary duration-300 ease-linear">Sign up</Link>
+              Don't have an account? <Link href="/auth/register" className="font-semibold hover:text-primarydark:hover:text-secondary duration-300 ease-linear">Sign up</Link>
             </span>
-            </center>
+          </center>
         </div>
       </section>
     </>

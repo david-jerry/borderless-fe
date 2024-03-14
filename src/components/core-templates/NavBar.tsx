@@ -9,6 +9,8 @@ import ThemeButton from '../ui/ThemeButton';
 import WaitButton from '../ui/WaitButton';
 import ProfileMenu from '../ui/ProfileMenu';
 import { useAuth } from '@/hooks/useAuth';
+import { requestGeolocationPermission } from '@/utils/permissions';
+import { Icon } from '@iconify/react';
 
 
 
@@ -17,8 +19,19 @@ export default function Navbar({ countryName }: NavbarProps) {
 
     const pathname = usePathname();
     const isAuth = pathname.startsWith('/auth');
-    const router = useRouter();
 
+    useEffect(() => {
+        const initializeGeolocation = async () => {
+            try {
+                await requestGeolocationPermission();
+                // Additional logic after geolocation permission is granted can be added here
+            } catch (error) {
+                console.log(error)
+            }
+        };
+
+        initializeGeolocation();
+    }, []);
 
     return (
         <>
@@ -33,26 +46,27 @@ export default function Navbar({ countryName }: NavbarProps) {
 
                         <div className="flex items-center gap-4">
                             <div className="pr-4 border-r flex items-center space-x-4">
-                                {!pathname.startsWith('/dashboard') ? (
+                                {!pathname.startsWith('/dashboard') && (
+                                    <Link href="/#about" className={`flex items-center space-x-2 hover:text-secondary dark:hover:text-secondary focus:text-secondary dark:focus:text-secondary: ${pathname.startsWith("/#about") ? "text-secondary dark:text-secondary" : "text-white"} duration-200 ease-linear`}>
+                                        <span>About</span> <span className="hidden">{countryName}</span>
+                                    </Link>
+                                )}
+
+
+                                {!auth?.user?.is_staff ?
+                                    <WaitButton /> :
                                     <>
-                                        <Link href="#about" className={`flex items-center space-x-2 hover:text-secondary focus:text-secondary ${pathname.startsWith("/#about") ? "text-secondary" : "text-white"} duration-200 ease-linear`}>
-                                            <span>About</span> <span className="hidden md:flex">{countryName}</span>
-                                        </Link>
-                                        <WaitButton />
-                                    </>
-                                ) : (
-                                    <>
-                                        <Link className={`flex items-center space-x-2 hover:text-secondary focus:text-secondary ${pathname === "/dashboard/subscribers" ? "text-secondary" : "text-white"} duration-200 ease-linear`} href="/dashboard/subscribers">Subscribers</Link>
+                                        <Link className={`flex items-center space-x-2 hover:text-secondary dark:hover:text-secondary focus:text-secondary dark:focus:text-secondary: ${pathname === "/dashboard/subscribers" ? "text-secondary dark:text-secondary" : "text-white"} duration-200 ease-linear`} title="subscribers" href="/dashboard/subscribers"><span className="hidden lg:block w-fit">Subscribers</span><Icon className="lg:hidden" icon="mingcute:group-3-fill" width="1.4rem" height="1.4rem" /></Link>
 
                                         {auth!.user !== null ?
                                             <ProfileMenu />
                                             :
                                             <>
-                                                <Link className={`flex items-center space-x-2 hover:text-secondary focus:text-secondary ${pathname === "/auth/login" ? "text-secondary" : "text-white"} duration-200 ease-linear`} href="/auth/login" >Login</Link>
+                                                <Link className={`flex items-center space-x-2 hover:text-secondary dark:hover:text-secondary focus:text-secondary dark:focus:text-secondary: ${pathname === "/auth/login" ? "text-secondary dark:text-secondary" : "text-white"} duration-200 ease-linear`} href="/auth/login" >Login</Link>
                                             </>
                                         }
                                     </>
-                                )}
+                                }
                             </div>
                             <ThemeButton />
                         </div>

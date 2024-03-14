@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Raleway } from "next/font/google";
+import { Raleway, Inter } from "next/font/google";
 import "./globals.css";
 import MainLayout from "@/components/layouts/MainLayout";
 import NavBar from "@/components/core-templates/NavBar";
@@ -7,6 +7,7 @@ import Footer from "@/components/core-templates/Footer";
 import AuthProvider from "@/providers/AuthProviders";
 
 const raleway = Raleway({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -99,7 +100,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${raleway.className} font-medium text-base bg-light dark:bg-dark relative z-0 w-screen scrollbar-thin scrollbar-thumb-secondary overflow-x-hidden overflow-y-auto`}>
+      <body className={`${raleway.className} font-medium text-base bg-gray-100 dark:bg-dark relative z-0 w-screen scrollbar-thin scrollbar-thumb-secondary overflow-x-hidden overflow-y-auto`}>
         <AuthProvider>
           <NavBar countryName="Borderless" />
           <MainLayout>
