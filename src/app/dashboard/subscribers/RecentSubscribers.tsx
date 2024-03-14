@@ -1,6 +1,7 @@
 import { useAuth } from "@/hooks/useAuth";
 import apiService from "@/services/apiService";
 import { useEffect, useState } from "react"
+import FormattedDate from "./FormattedDate";
 
 const Activities: React.FC = () => {
     const auth = useAuth();
@@ -41,22 +42,22 @@ const Activities: React.FC = () => {
     const past7DaysUsers = activities.filter(user => new Date(user.created) <= sevenDaysAgo);
 
     return (
-        <div className="h-full overflow-y-auto">
+        <div className="h-full overflow-y-auto w-full">
             <h2>Recently Joined</h2>
-            <div className="min-h-40 pt-4 space-y-2 flex flex-col items-start text-gray-500">
+            <div className="min-h-40 pt-4 space-y-2 flex flex-col items-start text-gray-500 w-full">
 
                 {recentUsers.length > 0 ? (recentUsers.map(user => (
-                    <div key={user.id} className="flex items-center w-full justify-between">
-                        <div className="flex items-start space-y-1">
+                    <div key={user.id} className="flex items-center w-full justify-between border-t first-of-type:border-t-0 pt-2.5">
+                        <div className="flex flex-col items-start space-y-1 w-full">
 
-                            <span className="text-sm font-bold flex w-fit whitespace-nobreak">{user.identity}</span>
-                            <span className="text-xs flex w-fit whitespace-nobreak">{user.activity_type}</span>
+                            <span className="text-xs font-bold flex w-fit whitespace-nobreak truncate">{user.identity}</span>
+                            <span className="text-xs flex w-fit whitespace-nobreak truncate">{user.activity_type}</span>
                             {/* Other user details */}
 
                         </div>
-                        <span className="text-sm flex items-end">
-                            {user.created}
-                        </span>
+                        <div className="text-xs flex items-end w-full text-right whitespace-nowrap">
+                            <FormattedDate datestring={user.created} />
+                        </div>
                     </div>
                 ))) : (
                     <span className="font-semibold text-sm">No Recent Activity</span>
@@ -65,18 +66,19 @@ const Activities: React.FC = () => {
             <h2 className="pt-6">Older Activities</h2>
             <div className="pt-4 space-y-2 flex flex-col items-start text-gray-500">
                 {past7DaysUsers.length > 0 ? (past7DaysUsers.map(user => (
-                    <div key={user.id} className="flex items-center w-full justify-between">
-                        <div className="flex items-start space-y-1">
+                    <div key={user.id} className="flex items-center w-full justify-between border-t first-of-type:border-t-0 pt-2.5">
+                        <div className="flex flex-col items-start space-y-1 w-full">
 
-                            <span className="text-sm font-bold flex w-fit whitespace-nobreak">{user.identity}</span>
-                            <span className="text-xs flex w-fit whitespace-nobreak">{user.activity_type}</span>
+                            <span className="text-xs font-bold flex w-fit whitespace-nobreak truncate">{user.identity}</span>
+                            <span className="text-xs flex w-fit whitespace-nobreak truncate">{user.activity_type}</span>
                             {/* Other user details */}
 
                         </div>
-                        <span className="text-sm flex items-end">
-                            {user.created}
-                        </span>
-                    </div>))) : (
+                        <div className="text-xs flex items-end w-full text-right whitespace-nowrap">
+                            <FormattedDate datestring={user.created} />
+                        </div>
+                    </div>
+                ))) : (
                     <span className="font-semibold text-sm">No Older Activity</span>
                 )}
             </div>

@@ -41,19 +41,22 @@ export default function ForgotPasswordForm() {
     return (
         <>
             {
-                !sent ? <form className="pt-8 max-w-xs lg:max-w-md w-full space-y-6">
-                    <InputComponent  autocomplete={false} setStateProp={setEmailInput} type="email" id="id_email" name="email" text="Email Address" />
+                !sent ?
+                    <form action={submitForm} className="pt-8 max-w-xs lg:max-w-md w-full space-y-6">
+                        <InputComponent autocomplete={false} setStateProp={setEmailInput} type="email" id="id_email" name="email" text="Email Address" />
 
-                    {error !== undefined && <span className="relative bg-red-300 py-2 px-6 w-full text-center text-red-700 text-xs font-semibold rounded-lg flex">{error}</span>}
-                    <button type="button" onClick={submitForm} className="rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 bg-primary dark:bg-secondary text-light dark:text-dark">{auth!.isLoading ? 'Loading...' : 'Submit'}</button>
-                </form> : <div className="mt-8 max-w-xs lg:max-w-md w-full gap-6 text-center flex flex-row items-center bg-green-300 text-green-700 rounded-xl p-6">
-                    <Icon icon="mdi:email-sent" width="1.2em" height="1.2em" className="w-16 h-16 flex-none" />
+                        {error !== undefined && <span className="relative bg-red-300 py-2 px-6 w-full text-center text-red-700 text-xs font-semibold rounded-lg flex">{error}</span>}
+                        <button type="submit" disabled={auth?.isLoading || error ? true : false} className={`rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 ${error ? "bg-gray-300 text-gray-900" : "bg-primary dark:bg-secondary text-light dark:text-dark"}`}>{auth !== null && auth.isLoading ? "Loading..." : "Submit"}</button>
+                    </form>
+                    :
+                    <div className="mt-8 max-w-xs lg:max-w-md w-full gap-6 text-center flex flex-row items-center bg-green-300 text-green-700 rounded-xl p-6">
+                        <Icon icon="mdi:email-sent" width="1.2em" height="1.2em" className="w-16 h-16 flex-none" />
 
-                    <p className="font-semibold text-sm flex-grow">
-                        We have sent an email to you, please click the link to reset your password.
-                    </p>
+                        <p className="font-semibold text-sm flex-grow">
+                            We have sent an email to you, please click the link to reset your password.
+                        </p>
 
-                </div>
+                    </div>
             }
         </>
     )

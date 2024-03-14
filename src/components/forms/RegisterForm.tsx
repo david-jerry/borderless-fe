@@ -228,7 +228,7 @@ export default function RegisterForm() {
                 {passwordConfirmError !== undefined && <span className="relative bg-red-300 py-2 px-6 w-full text-center text-red-700 text-xs font-semibold rounded-lg flex">{passwordConfirmError}</span>}
             </div>
 
-            <button type="submit" disabled={error || passwordError || passwordConfirmError || nameError || emailError || phoneError || countryError ? true : false} className={`rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 ${error || passwordError || passwordConfirmError || nameError || emailError || phoneError || countryError ? "bg-gray-300 text-gray-900" : "bg-primary dark:bg-secondary text-light dark:text-dark"}`}>{auth !== null && auth.isLoading ? "Loading..." : "Submit"}</button>
+            <button type="submit" disabled={auth?.isLoading || error || passwordError || passwordConfirmError || nameError || emailError || phoneError || countryError ? true : false} className={`rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 ${error || passwordError || passwordConfirmError || nameError || emailError || phoneError || countryError ? "bg-gray-300 text-gray-900" : "bg-primary dark:bg-secondary text-light dark:text-dark"}`}><span className={`${auth?.isLoading ? "animate-ping" : "animate-none"}`}>{auth?.isLoading ? "Submitting..." : "Submit"}</span></button>
         </form>
     )
 }

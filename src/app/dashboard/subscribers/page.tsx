@@ -54,7 +54,7 @@ export default function Subscribers() {
 
   return (
     <section className="w-screen padding-x py-8 text-dark dark:text-light pt-28">
-      <h1 className="w-full items-center justify-between flex text-xl pb-6 lg:text-3xl font-bold text-primary dark:text-secondary"><span className="block whitespace-nowrap">Total Sunscribers</span> <span className="block text-xs border rounded-lg p-1.5">{subsCount}</span></h1>
+      <h1 className="w-full items-center justify-between flex text-xl pb-6 lg:text-3xl font-bold text-primary dark:text-secondary"><span className="block whitespace-nowrap">Total Sunscribers</span> <span className="block text-xs border rounded-lg p-1.5">#{subsCount} Waitlist</span></h1>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 ">
         <div className="h-[calc(100vh_-_13rem)] lg:col-span-2 order-2 lg:order-1 bg-white dark:bg-primary shadow-xl rounded-xl p-4">
           <div className="flex items-center space-x-4 lg:space-x-14 justify-between h-16">
@@ -73,11 +73,11 @@ export default function Subscribers() {
             </Suspense>
           </div>
         </div>
-        <div className="lg:h-[calc(100vh_-_13rem)] p-4 order-1 lg:order-2 gap-4 flex flex-col items-start bg-white dark:bg-primary shadow-xl rounded-xl">
-          <strong className="font-bold text-base lg:text-xl">
+        <div className="lg:h-[calc(100vh_-_7rem)] h-48 p-4 order-1 lg:order-2 gap-4 flex flex-col items-start bg-white dark:bg-primary shadow-xl rounded-xl w-full">
+          <strong className="font-bold text-base lg:text-xl w-full">
             Recent Activities
           </strong>
-          <div className="flex items-center justify-between p-2 h-[calc(100%_-_5.5rem)] overflow-y-auto">
+          <div className="flex items-center justify-between p-2 h-[calc(100%_-_2.5rem)] overflow-y-auto w-full">
             <Activities/>
           </div>
         </div>

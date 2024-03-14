@@ -13,7 +13,7 @@ export default function SearchSubscribers() {
     const handleSearch = useDebouncedCallback(async (term: string) => {
         console.group(term);
         // if (auth !== null) {
-        //     await apiService.get(`/users/waiters/?q=${term}`, auth.accessToken)
+        //     await apiService.get(`/waiters/?q=${term}`, auth.accessToken)
         // }
         const params = new URLSearchParams(searchParams);
         params.set('p', '1');

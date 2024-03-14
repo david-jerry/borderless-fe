@@ -89,7 +89,7 @@ export default function LoginForm() {
             </div>
 
             <center><Link href="/auth/forgot-password" className="font-bold" type="button">Forgot password ?</Link></center>
-            <button type="submit" disabled={error || passwordError || emailError ? true : false} className={`rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 ${error || passwordError || emailError ? "bg-gray-300 text-gray-900" : "bg-primary dark:bg-secondary text-light dark:text-dark"}`}>Submit</button>
+            <button type="submit" disabled={auth?.isLoading || error || passwordError || emailError ? true : false} className={`rounded-xl hover:scale-105 duration-300 ease-linear hover:shadow-lg w-full py-2 px-6 ${error || passwordError || emailError ? "bg-gray-300 text-gray-900" : "bg-primary dark:bg-secondary text-light dark:text-dark"}`}><span className={`${auth?.isLoading ? "animate-ping" : "animate-none"}`}>{auth?.isLoading ? "Submitting..." : "Submit"}</span></button>
         </ form>
     )
 }

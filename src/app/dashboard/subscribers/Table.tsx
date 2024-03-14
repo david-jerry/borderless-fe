@@ -23,11 +23,11 @@ export default function Table({ totalSubscribers }: {
     const page_size = Number(searchParams.get('page_size')) || 50;
     const totalPages = Math.ceil(subscribers.length / page_size)
 
-    
+
 
     useEffect(() => {
         const fetchSubscribers = async () => {
-            const res = await apiService.get(`/users/waiters/?q=${query}&p${currentPage}&page_size=${page_size}`, auth!.accessToken)
+            const res = await apiService.get(`/waiters/?q=${query}&p=${currentPage}&page_size=${page_size}`, auth!.accessToken)
             console.log(res)
             if (res.error_message === "Authentication credentials were not provided.") {
                 await auth!.rfreshToken(auth!.refreshToken!)
@@ -48,7 +48,7 @@ export default function Table({ totalSubscribers }: {
             // Clean up function to clear the interval when the component unmounts
             return () => clearInterval(intervalId);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth, page_size, currentPage, query])
 
     return (
@@ -58,7 +58,7 @@ export default function Table({ totalSubscribers }: {
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead className="text-xs text-gray-100 uppercase bg-primary dark:bg-dark dark:text-light h-16">
                             <tr>
-                                <th scope="col" className="px-6 py-3">
+                                <th scope="col" className="px-6 py-3 text-nowrap">
                                     Name
                                 </th>
                                 <th scope="col" className="px-6 py-3 truncate text-nowrap">
@@ -80,7 +80,7 @@ export default function Table({ totalSubscribers }: {
                         </tbody>
                     </table>
                 </div>
-                <Pagination pageSize={page_size} currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage}/>
+                <Pagination pageSize={page_size} currentPage={currentPage} totalPages={totalPages} nextPage={nextPage} prevPage={prevPage} />
             </div>
 
         </>

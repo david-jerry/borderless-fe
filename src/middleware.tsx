@@ -43,11 +43,11 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/dashboard/subscribers", request.url));
     }
 
-    if (!storedCounty || storedCounty === undefined) {
-        country = await getCountryFromIP(request, undefined)
-        response.cookies.set(`${ip}:country`, country);
-        console.log(request.cookies.has("country"))
-    }
+    // if (!storedCounty || storedCounty === undefined) {
+    //     country = await getCountryFromIP(request, undefined)
+    //     response.cookies.set(`${ip}:country`, country);
+    //     console.log(request.cookies.has("country"))
+    // }
 
     return response;
 }
