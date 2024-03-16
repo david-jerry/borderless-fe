@@ -1,7 +1,7 @@
 export const sliderItems: SliderItems[] = [
     {
         id: 1,
-        img: "https://www.freepik.com/free-photo/woman-walking-kelingking-beach-nusa-penida-island-bali-indonesia_11306456.htm#fromView=search&page=2&position=44&uuid=bd73bc4e-d4eb-4f00-b60d-59aa61ca6799",//"/hero/slider/explore.jpg",
+        img: "/hero/slider/explore.jpg",
         description: "Embark on unforgettable journeys to breathtaking destinations. Let our expertise guide you to discover the wonders of the world. Your next adventure awaits!",
         heading: "Explore the World with Us",
         attibute: "Photo by Janos Racz",
@@ -9,7 +9,7 @@ export const sliderItems: SliderItems[] = [
     },
     {
         id: 2,
-        img: "https://www.freepik.com/free-photo/woman-standing-pond-with-colorful-fish-tirta-gangga-water-palace-bali-indonesia_11306482.htm#fromView=search&page=6&position=43&uuid=86700d00-ab2b-4096-a2be-d249bb3de58a", //"/hero/slider/vacation.jpg",
+        img: "/hero/slider/vacation.jpg",
         description: "Turn your travel dreams into reality! Secure your spot for an incredible getaway. Immerse yourself in luxury, culture, and adventure. Start planning your escape today!",
         heading: "Book Your Dream Vacation Now",
         attibute: "Photo by Te lensFix",
@@ -17,7 +17,7 @@ export const sliderItems: SliderItems[] = [
     },
     {
         id: 3,
-        img: "https://www.freepik.com/free-photo/beautiful-girl-surrounded-by-fish-andaman-sea-krabi-thailand_13573586.htm#fromView=search&page=4&position=31&uuid=86700d00-ab2b-4096-a2be-d249bb3de58a", //"/hero/slider/club.jpg",
+        img: "/hero/slider/club.jpg",
         description: "Unlock a world of exclusive perks and experiences! Become a member of our travel community and enjoy VIP access to curated trips, special discounts, and personalized itineraries. Your passport to extraordinary adventures awaits!",
         heading: "Join Our Exclusive Travel Club",
         attibute: "Photo by Andrei Tanase",
