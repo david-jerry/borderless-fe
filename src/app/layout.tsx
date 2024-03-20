@@ -6,8 +6,8 @@ import NavBar from "@/components/core-templates/NavBar";
 import Footer from "@/components/core-templates/Footer";
 import AuthProvider from "@/providers/AuthProviders";
 
-const raleway = Raleway({ subsets: ["latin"] });
-const inter = Inter({ subsets: ["latin"] });
+const raleway = Raleway({ subsets: ["latin"], fallback: ['sans-serif'] });
+const inter = Inter({ subsets: ["latin"], fallback: ['sans-serif'] });
 
 export const metadata: Metadata = {
   title: {
