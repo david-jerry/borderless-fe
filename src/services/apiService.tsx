@@ -1,5 +1,5 @@
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL; // || "http://localhost:8000/api/v1"
+const BASE_URL = "https://borderless-api.bytestreaminnovators.ltd/api/v1";// process.env.NEXT_PUBLIC_BASE_API_URL; // || "http://localhost:8000/api/v1"
 /**
  * Represents a service for making HTTP requests to an API Endpoint.
  * @namespace
